@@ -8,6 +8,8 @@
 #include <thrust/device_vector.h>
 #include <thrust/random.h>
 
+#include <gydra.h>
+
 #include <src/octree/enclosing_volume.h>
 
 
