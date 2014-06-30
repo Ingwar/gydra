@@ -8,7 +8,7 @@
 #include <thrust/device_vector.h>
 #include <thrust/random.h>
 
-#include <src/octree/corners.h>
+#include <src/octree/enclosing_volume.h>
 
 
 namespace gydra {
