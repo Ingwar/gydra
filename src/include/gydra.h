@@ -4,12 +4,6 @@
 #ifndef GYDRA_H_
 #define GYDRA_H_
 
-#include <cassert>
-
-#include <thrust/transform_reduce.h>
-#include <thrust/functional.h>
-#include <thrust/extrema.h>
-
 /** Main namespace for **Gydra** project.
  */
 namespace gydra {
@@ -37,4 +31,4 @@ typedef double3 real3;
 
 }  // namespace gydra
 
-#endif //  GYDRA_H_
+#endif  // GYDRA_H_
