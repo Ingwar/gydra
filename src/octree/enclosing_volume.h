@@ -1,8 +1,8 @@
 /** @file */
 #pragma once
 
-#ifndef GYDRA_OCTREE_CORNERS_H_
-#define GYDRA_OCTREE_CORNERS_H_
+#ifndef GYDRA_OCTREE_ENCLOSING_VOLUME_H_
+#define GYDRA_OCTREE_ENCLOSING_VOLUME_H_
 
 #include <cassert>
 
@@ -175,4 +175,4 @@ RectangularRegion find_circumscribed_volume(const InputIterator& first, const In
 
 }  // namespace gydra
 
-#endif // GYDRA_OCTREE_CORNERS_H_
+#endif // GYDRA_OCTREE_ENCLOSING_VOLUME_H_
