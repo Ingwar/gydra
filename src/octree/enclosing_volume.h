@@ -89,7 +89,7 @@ class ToRectangularRegion : public thrust::unary_function< T, RectangularRegion 
    * @returns instance of `RectangularRegion` with both fields equal to the `x` position
    */
   __host__ __device__ RectangularRegion operator()(const T& x) const {
-    RectangularRegion result(x.getPosition(), x.getPosition());
+    const RectangularRegion result(x.getPosition(), x.getPosition());
     return result;
   }
 
@@ -111,9 +111,9 @@ class MergeRegions: public thrust::binary_function< RectangularRegion, Rectangul
    * @returns minimum rectangle that could hold both given regions
    */
   __host__ __device__ RectangularRegion operator()(const RectangularRegion& one, const RectangularRegion& another) const {
-    real3 left_bottom_rear = findMinimumPoint(one, another);
-    real3 rigth_top_front = findMaximumPoint(one, another);
-    RectangularRegion result(left_bottom_rear, rigth_top_front);
+    const real3 left_bottom_rear = findMinimumPoint(one, another);
+    const real3 rigth_top_front = findMaximumPoint(one, another);
+    const RectangularRegion result(left_bottom_rear, rigth_top_front);
     return result;
   }
 
@@ -125,9 +125,9 @@ class MergeRegions: public thrust::binary_function< RectangularRegion, Rectangul
      * @returns minimum point of the given regions
      */
     __host__ __device__ real3 findMinimumPoint(const RectangularRegion& one, const RectangularRegion& another) const {
-    real min_x = thrust::min(one.getLeftBottomRear().x, another.getLeftBottomRear().x);
-    real min_y = thrust::min(one.getLeftBottomRear().y, another.getLeftBottomRear().y);
-    real min_z = thrust::min(one.getLeftBottomRear().z, another.getLeftBottomRear().z);
+    const real min_x = thrust::min(one.getLeftBottomRear().x, another.getLeftBottomRear().x);
+    const real min_y = thrust::min(one.getLeftBottomRear().y, another.getLeftBottomRear().y);
+    const real min_z = thrust::min(one.getLeftBottomRear().z, another.getLeftBottomRear().z);
     return make_real3(min_x, min_y, min_z);
   }
 
@@ -138,9 +138,9 @@ class MergeRegions: public thrust::binary_function< RectangularRegion, Rectangul
      * @returns maximum point of the given regions
      */
   __host__ __device__ real3 findMaximumPoint(const RectangularRegion& one, const RectangularRegion& another) const {
-    real max_x = thrust::max(one.getRightTopFront().x, another.getRightTopFront().x);
-    real max_y = thrust::max(one.getRightTopFront().y, another.getRightTopFront().y);
-    real max_z = thrust::max(one.getRightTopFront().z, another.getRightTopFront().z);
+    const real max_x = thrust::max(one.getRightTopFront().x, another.getRightTopFront().x);
+    const real max_y = thrust::max(one.getRightTopFront().y, another.getRightTopFront().y);
+    const real max_z = thrust::max(one.getRightTopFront().z, another.getRightTopFront().z);
     return make_real3(max_x, max_y, max_z);
   }
 
@@ -167,9 +167,9 @@ RectangularRegion find_circumscribed_volume(const InputIterator& first, const In
   circumscribed_volume_helpers::ToRectangularRegion<T> to_region;
   circumscribed_volume_helpers::MergeRegions merge_regions;
 
-  RectangularRegion initial_region = to_region(*first);
+  const RectangularRegion initial_region = to_region(*first);
 
-  RectangularRegion volume = transform_reduce(first, last, to_region, initial_region, merge_regions);
+  const RectangularRegion volume = transform_reduce(first, last, to_region, initial_region, merge_regions);
   return volume;
 }
 
