@@ -6,6 +6,8 @@
 
 #include <cassert>
 
+#include <cuda_runtime.h>
+
 #include <thrust/transform_reduce.h>
 #include <thrust/functional.h>
 #include <thrust/extrema.h>
