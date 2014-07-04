@@ -1,6 +1,6 @@
 project(tests)
 
-include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/src/include)
+include_directories(${CMAKE_SOURCE_DIR})
 
 # Add Google Test
 include(GTest.cmake)
