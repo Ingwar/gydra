@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 2.8.7 FATAL_ERROR)
 
 project(tests)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-unused-local-typedefs")
-
 #Minimum architecture required for usage of assertions in the device code
 set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -arch=compute_20")
 
