@@ -15,4 +15,5 @@ set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -arch=compute_20")
 # Add the project top-level ("public") headers to the include paths
 include_directories(${CMAKE_SOURCE_DIR}/src/include)
 
+# Compile tests
 add_subdirectory(test)
