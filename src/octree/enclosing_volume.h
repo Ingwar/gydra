@@ -24,7 +24,7 @@ namespace octree {
  *
  *  It's used mainly for representation of circumscribed volume for set of points.
  */
-class RectangularRegion {
+class RectangularRegion { // TODO: Rename it to the `BoundingBox`
 
  private:
   real3 left_bottom_rear;
@@ -83,6 +83,9 @@ template <typename T>
 class ToRectangularRegion : public thrust::unary_function< T, RectangularRegion > {
 
  public:
+
+  ToRectangularRegion() {}
+
   /** Creates `RectangularRegion` instance from the given object's position.
    *
    * @param x objeсt whose position will be used to constrution `RectangularRegion` instance
@@ -104,6 +107,9 @@ class ToRectangularRegion : public thrust::unary_function< T, RectangularRegion 
 class MergeRegions: public thrust::binary_function< RectangularRegion, RectangularRegion, RectangularRegion > {
 
  public:
+
+  MergeRegions() {}
+
   /** Finds the minimum rectangular circumscribed volume for given regions.
    *
    * @param one rectangular region of space
@@ -164,8 +170,8 @@ RectangularRegion find_circumscribed_volume(const InputIterator& first, const In
 
   typedef typename thrust::iterator_value<InputIterator>::type T;
 
-  circumscribed_volume_helpers::ToRectangularRegion<T> to_region;
-  circumscribed_volume_helpers::MergeRegions merge_regions;
+  const circumscribed_volume_helpers::ToRectangularRegion<T> to_region;
+  const circumscribed_volume_helpers::MergeRegions merge_regions;
 
   const RectangularRegion initial_region = to_region(*first);
 

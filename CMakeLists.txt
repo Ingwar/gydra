@@ -18,6 +18,9 @@ set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -arch=compute_20")
 # Add the project top-level ("public") headers to the include paths
 include_directories(${CMAKE_SOURCE_DIR}/src/include)
 
+# Add library for octree creation
+add_subdirectory(src/octree)
+
 # Compile tests if they are enabled
 if (build_gydra_tests)
   add_subdirectory(test)
