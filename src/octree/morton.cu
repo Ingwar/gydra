@@ -1,6 +1,6 @@
 #include <cuda_runtime.h>
 
-#include<gydra.h>
+#include <gydra.h>
 
 #include "morton.h"
 
