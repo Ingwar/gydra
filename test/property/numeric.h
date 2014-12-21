@@ -12,16 +12,48 @@ namespace testing {
 namespace property {
 
 template<typename integer_type>
-class PropertyTestForAllIntegersOfType : public gydra::testing::property::PropertyTest<integer_type> {
+class PropertyTestForAllIntegersBetween : public PropertyTest<integer_type>  {
 
  private:
   thrust::default_random_engine rng;
   thrust::uniform_int_distribution<integer_type> dist;
 
  protected:
-  integer_type GenerateCase() {
-    return dist(rng);
-  };
+  integer_type GenerateCase();
+
+ public:
+    PropertyTestForAllIntegersBetween(const integer_type a, const integer_type b);
+
+};
+
+template<typename integer_type>
+class PropertyTestForAllIntegersOfType : public PropertyTestForAllIntegersBetween<integer_type> {
+
+ public:
+  PropertyTestForAllIntegersOfType();
+
+};
+
+template<typename integer_type>
+class PropertyTestForAbsolutlyAllIntegersBeetwen: public gydra::testing::property::PropertyTest<integer_type> {
+
+ private:
+  const integer_type minimum;
+  const integer_type maximum;
+  integer_type current_number;
+
+ protected:
+  integer_type GenerateCase();
+
+ public:
+  PropertyTestForAbsolutlyAllIntegersBeetwen(const integer_type a, const integer_type b);
+
+};
+
+class PropertyTestForAbsolutlyAllTenBitsUnsignedIntegers: public PropertyTestForAbsolutlyAllIntegersBeetwen<unsigned int> {
+
+ public:
+  PropertyTestForAbsolutlyAllTenBitsUnsignedIntegers(): PropertyTestForAbsolutlyAllIntegersBeetwen<unsigned int>(0, 1023) {}
 
 };
 
@@ -30,5 +62,8 @@ class PropertyTestForAllIntegersOfType : public gydra::testing::property::Proper
 }  // namespace test
 
 }  // namespace gydra
+
+
+#include "impl/numeric_property_test_impl.inl"
 
 #endif // GYDRA_TEST_PROPERTY_NUMERIC_H_
