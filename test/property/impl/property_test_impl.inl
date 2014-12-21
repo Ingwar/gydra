@@ -1,7 +1,7 @@
 #ifndef GYDRA_TEST_PROPERTY_IMPL_H_
 #define GYDRA_TEST_PROPERTY_IMPL_H_
 
-#include "property.h"
+#include "../property.h"
 
 namespace gydra {
 

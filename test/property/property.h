@@ -55,7 +55,8 @@ class PropertyTest : public ::testing::Test {
   virtual fixture_type GenerateCase() = 0;
 
  public:
-  PropertyTest(size_t intended_number_of_cases = 200);
+  PropertyTest(const size_t intended_number_of_cases = 200);
+  virtual ~PropertyTest() {}
 
 };
 
@@ -66,7 +67,7 @@ class PropertyTest : public ::testing::Test {
 
 }  // namespace gydra
 
-#include "property_test_impl.inl"
+#include "impl/property_test_impl.inl"
 
 #endif  // GYDRA_TEST_PROPERTY_H_
 
