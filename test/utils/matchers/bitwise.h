@@ -32,7 +32,7 @@ MATCHER_P(HasNoMoreThanNSignificantBits, n, "has no more than " + PrintToString(
 
     if (current_bit_is_non_zero) {
       *result_listener << "binary representation is " << arg_bits;
-      *result_listener << " (the " + as_ordinal(i + 1) + " bit is 1, but should be 0)";
+      *result_listener << " (the " + as_ordinal(i) + " bit is 1, but should be 0)";
       return false;
     }
 
@@ -49,7 +49,7 @@ MATCHER_P(HasAtLeastNTrailingZeroBits, n, "has at least " + PrintToString(n) + "
 
     if (current_bit_is_non_zero) {
       *result_listener << "binary representation is " << arg_bits;
-      *result_listener << " (the " + as_ordinal(i + 1) + " bit is 1, but should be 0)";
+      *result_listener << " (the " + as_ordinal(i) + " bit is 1, but should be 0)";
       return false;
     }
 
@@ -70,7 +70,7 @@ MATCHER_P3(HasBitsEqualToTheBitsOf, target, from, to, "has bits from " + PrintTo
       *result_listener << "binary representation is " << arg_bits;
       *result_listener << " (";
       *result_listener << "target is " + PrintToString(target) + " with binary representation " << target_bits;
-      *result_listener << ", the " + as_ordinal(i + 1) + " bits are different";
+      *result_listener << ", the " + as_ordinal(i) + " bits are different";
       *result_listener << ")";
       return false;
     }
