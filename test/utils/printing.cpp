@@ -16,7 +16,7 @@ namespace {
  * @param digit unsigned integer between 0 and 9 (inclusively)
  * @returns suffix of ordinal corresponding to given digit ("st", "snd")
  */
-std::string get_ordinal_suffix_for_digit(size_t digit) {
+std::string get_ordinal_suffix_for_digit(const size_t digit) {
   assert((0 <= digit) && (digit <= 9));
 
   switch(digit) {
@@ -25,6 +25,12 @@ std::string get_ordinal_suffix_for_digit(size_t digit) {
     case 3: return "rd";
     default: return "th";
   }
+}
+
+std::string size_to_string(const size_t number) {
+  std::ostringstream result;
+  result << number;
+  return result.str();
 }
 
 } // namespace
@@ -47,10 +53,8 @@ std::string get_ordinal_suffix(size_t number) {
  * @param number
  * @returns string containing ordinal as number with suffix (i.e., "1st", "7th")
  */
-std::string as_ordinal(size_t number) {
-  std::ostringstream result;
-  result << number << get_ordinal_suffix(number);
-  return result.str();
+std::string as_ordinal(const size_t number) {
+  return size_to_string(number) + get_ordinal_suffix(number);
 }
 
 }  // namespace utils
