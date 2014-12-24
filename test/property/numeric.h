@@ -35,7 +35,7 @@ class PropertyTestForAllIntegersOfType : public PropertyTestForAllIntegersBetwee
 };
 
 template<typename integer_type>
-class PropertyTestForAbsolutlyAllIntegersBeetwen: public gydra::testing::property::PropertyTest<integer_type> {
+class PropertyTestForAbsolutelyAllIntegersBetween : public gydra::testing::property::PropertyTest<integer_type> {
 
  private:
   const integer_type minimum;
@@ -46,14 +46,14 @@ class PropertyTestForAbsolutlyAllIntegersBeetwen: public gydra::testing::propert
   integer_type GenerateCase();
 
  public:
-  PropertyTestForAbsolutlyAllIntegersBeetwen(const integer_type a, const integer_type b);
+  PropertyTestForAbsolutelyAllIntegersBetween(const integer_type a, const integer_type b);
 
 };
 
-class PropertyTestForAbsolutlyAllTenBitsUnsignedIntegers: public PropertyTestForAbsolutlyAllIntegersBeetwen<unsigned int> {
+class PropertyTestForAbsolutelyAllTenBitsUnsignedIntegers: public PropertyTestForAbsolutelyAllIntegersBetween<unsigned int> {
 
  public:
-  PropertyTestForAbsolutlyAllTenBitsUnsignedIntegers(): PropertyTestForAbsolutlyAllIntegersBeetwen<unsigned int>(0, 1023) {}
+  PropertyTestForAbsolutelyAllTenBitsUnsignedIntegers(): PropertyTestForAbsolutelyAllIntegersBetween<unsigned int>(0, 1023) {}
 
 };
 

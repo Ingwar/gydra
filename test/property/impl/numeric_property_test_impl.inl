@@ -26,7 +26,7 @@ PropertyTestForAllIntegersOfType<integer_type>::PropertyTestForAllIntegersOfType
 }
 
 template<typename integer_type>
-PropertyTestForAbsolutlyAllIntegersBeetwen<integer_type>::PropertyTestForAbsolutlyAllIntegersBeetwen(const integer_type a, const integer_type b): 
+PropertyTestForAbsolutelyAllIntegersBetween<integer_type>::PropertyTestForAbsolutelyAllIntegersBetween(const integer_type a, const integer_type b):
     minimum(a), maximum(b), current_number(a), PropertyTest<integer_type>(b - a + 1) {
 
   assert(a <= b);
@@ -34,7 +34,7 @@ PropertyTestForAbsolutlyAllIntegersBeetwen<integer_type>::PropertyTestForAbsolut
 }
 
 template<typename integer_type>
-integer_type PropertyTestForAbsolutlyAllIntegersBeetwen<integer_type>::GenerateCase() {
+integer_type PropertyTestForAbsolutelyAllIntegersBetween<integer_type>::GenerateCase() {
   const integer_type result = current_number;
   assert(minimum <= result);
   assert(result <= maximum);
