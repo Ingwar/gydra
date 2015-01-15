@@ -64,13 +64,34 @@ const unsigned int DILATION_SIZE = 10;
 
 const unsigned int DILATED_INTEGER_LENGTH = 60;
 
-/** Mask for retrieving first 10 bits of integer.
+/** Extract first 10 bits of the unsigned integer.
+ *
+ * @param number
+ * @return unsigned integer with first 10 bits equal to the first 10 bits of arguments and others set to zero
  */
-const unsigned int FIRST_TEN_BITS_MASK = (1 << DILATION_SIZE) - 1;
+__host__ __device__ unsigned int get_first_10_bits_of_number(const unsigned int number);
 
-/** Mask for retrieving second 10 bits of integer.
+/** Extract second 10 bits of unsigned integer.
+ *
+ * This function extracts 10 bits of argument from 10th to 19th (counting from zero)
+ * and returns it as a unsigned number so that 0th bit of result is equal to the 10th bit of
+ * argument, 1st bit of result is equal to the 11st bit of argument and so on till the 9th bit
+ * of result and 19th bit of argument. All other bits of result should be equal to zero.
+ *
+ * **Example**:
+ *
+ * @code
+ *
+ * const unsigned int number = 5102; // binary representation is "1010000000000"
+ * const unsigned int result = get_first_10_bits_of_number(number);
+ * cout << result; // prints "5", binary representation is "101"
+ *
+ * @endcode
+
+ * @param number
+ * @return unsigned integer with first 10 bits equal to the second 10 bits of argument and others set to zero
  */
-const unsigned int SECOND_TEN_BITS_MASK = ((1 << (2 * DILATION_SIZE)) - 1) ^ FIRST_TEN_BITS_MASK;
+__host__ __device__ unsigned int get_second_10_bits_of_number(const unsigned int number);
 
 /** Extract first 30 bits of the 64-bit unsigned integer.
  *
@@ -83,7 +104,7 @@ __host__ __device__ unsigned int get_first_bits_of_dilated_number(const uint64 n
  *
  * This function extracts 30 bits of argument from 30th to 59th (counting from zero)
  * and returns it as a unsigned number so that 0th bit of result is equal to the 30th bit of
- * argument, 1st bit of result is equal to the 31st bit of argument and so on till the 30th bit
+ * argument, 1st bit of result is equal to the 31st bit of argument and so on till the 29th bit
  * of result and 59th bit of argument. All other bits of result should be equal to zero.
  *
  * **Example**:
@@ -97,7 +118,7 @@ __host__ __device__ unsigned int get_first_bits_of_dilated_number(const uint64 n
  * @endcode
  *
  * @param number
- * @returns unsigned integer with first 30 bits equal to the second 30 bits of argument and others set to zero
+ * @return unsigned integer with first 30 bits equal to the second 30 bits of argument and others set to zero
  *
  */
 __host__ __device__ unsigned int get_second_bits_of_dilated_number(const uint64 number);

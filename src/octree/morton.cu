@@ -28,15 +28,29 @@ __host__ __device__ uint3 get_coordinates_for_key(const MortonKey key) {
 
 namespace helpers {
 
-const uint64 FIRST_DILATED_BITS_MASK = (1ll << (DILATED_INTEGER_LENGTH / 2)) - 1;
+namespace {
 
-const uint64 SECOND_DILATED_BITS_MASK = ((1ll << DILATED_INTEGER_LENGTH) - 1) ^ FIRST_DILATED_BITS_MASK;
+/** Mask for retrieving first 10 bits of integer.
+ */
+const unsigned int FIRST_TEN_BITS_MASK = (1 << DILATION_SIZE) - 1;
+
+/** Mask for retrieving second 10 bits of integer.
+ */
+const unsigned int SECOND_TEN_BITS_MASK = ((1 << (2 * DILATION_SIZE)) - 1) ^ FIRST_TEN_BITS_MASK;
+
+const uint64 FIRST_DILATED_BITS_MASK = (1ull << (DILATED_INTEGER_LENGTH / 2)) - 1;
+
+const uint64 SECOND_DILATED_BITS_MASK = ((1ull << DILATED_INTEGER_LENGTH) - 1) ^ FIRST_DILATED_BITS_MASK;
+
+} //  namespace
 
 __host__ __device__ uint64 dilate(const unsigned int number) {
   //Dilate first 10 bits
-  const unsigned int first_10_bits_dilated = dilate_short(number & FIRST_TEN_BITS_MASK);
+  const unsigned int first_10_bits = get_first_10_bits_of_number(number);
+  const uint64 first_10_bits_dilated = dilate_short(first_10_bits);
   //Dilate second 10 bits
-  const unsigned int second_10_bits_dilated = dilate_short(number & SECOND_TEN_BITS_MASK);
+  const unsigned int second_10_bits = get_second_10_bits_of_number(number);
+  const uint64 second_10_bits_dilated = dilate_short(second_10_bits);
   //Store result in 64-bit integer
   const uint64 dilated_number = first_10_bits_dilated | (second_10_bits_dilated << (3 * DILATION_SIZE));
   return dilated_number;
@@ -68,6 +82,14 @@ __host__ __device__ unsigned int undilate_short(const unsigned int number) {
   result = (result * 0x01041) & 0x0FF80001;
   result = (result * 0x40001) & 0x0FFC0000;
   return result >> 18;
+}
+
+__host__ __device__ unsigned int get_first_10_bits_of_number(const unsigned int number) {
+  return number & FIRST_TEN_BITS_MASK;
+}
+
+__host__ __device__ unsigned int get_second_10_bits_of_number(const unsigned int number) {
+  return (number & SECOND_TEN_BITS_MASK) >> DILATION_SIZE;
 }
 
 __host__ __device__ unsigned int get_first_bits_of_dilated_number(const uint64 number) {
