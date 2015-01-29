@@ -19,13 +19,16 @@ namespace test {
 using gydra::testing::matchers::HasNoMoreThanNSignificantBits;
 using gydra::testing::matchers::HasBitsEqualToTheBitsOf;
 
-class DilationAndUndilationTest : public gydra::testing::property::PropertyTestForAllIntegersBetween<uint64> {
+class DilationAndUndilationRevertibilityTest : public gydra::testing::property::PropertyTestForAllIntegersBetween<uint64> {
  public:
-  DilationAndUndilationTest(): PropertyTestForAllIntegersBetween<uint64>(0ull, 1ull << 20) {
+  DilationAndUndilationRevertibilityTest(): PropertyTestForAllIntegersBetween<uint64>(0ull, 1ull << 20) {
   }
 };
 
-PROPERTY_TEST(DilationAndUndilationTest, dilation_and_undilation_should_be_revertible_for_integers_with_no_more_than_20_significant_bits, number) {
+class DilationAndUndilationPartialRevertibilityTest : public gydra::testing::property::PropertyTestForAllIntegersOfType<uint64> {
+};
+
+PROPERTY_TEST(DilationAndUndilationRevertibilityTest, dilation_and_undilation_should_be_revertible_for_integers_with_no_more_than_20_significant_bits, number) {
   ASSERT_THAT(number, HasNoMoreThanNSignificantBits(2 * DILATION_SIZE)) << "Precondition for test is not hold";
 
   const uint64 dilated_number = dilate(number);
@@ -34,7 +37,7 @@ PROPERTY_TEST(DilationAndUndilationTest, dilation_and_undilation_should_be_rever
   ASSERT_EQ(number, undilated_number) << "Result of undilation of dilated number is not equal to the original number";
 }
 
-PROPERTY_TEST(DilationAndUndilationTest, undilation_of_dilated_number_should_have_first_twenty_bits_equal_to_the_first_twenty_bits_of_original_number, number) {
+PROPERTY_TEST(DilationAndUndilationPartialRevertibilityTest, undilation_of_dilated_number_should_have_first_twenty_bits_equal_to_the_first_twenty_bits_of_original_number, number) {
   const uint64 dilated_number = dilate(number);
   const uint64 undilated_number = undilate(dilated_number);
 
