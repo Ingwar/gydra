@@ -17,13 +17,16 @@ namespace octree {
  */
 namespace morton {
 
-//Type alias for unsigned 64-bit integer. CUDA doesn't currently support
-// C++11, therefore we need to use this alias
+/** Type alias for unsigned 64-bit integer. CUDA doesn't currently support
+ *  C++11, therefore we need to use this alias
+ */
 typedef unsigned long long uint64;
 
 //Check (at compile time) that uint64 is really at least 64 bit long
 BOOST_STATIC_ASSERT_MSG(std::numeric_limits<uint64>::digits >= 64, "64-bit unsigned integer is not available");
 
+/** Type alias for MortonKey.
+ */
 typedef uint64 MortonKey; 
 
 /** Compute Morton Z-order for point with given coordinates.

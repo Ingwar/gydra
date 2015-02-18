@@ -20,9 +20,18 @@ __host__ __device__ MortonKey get_morton_key(const uint3& coordinates) {
 }
 
 __host__ __device__ uint3 get_coordinates_for_key(const MortonKey key) {
-  const unsigned int x = undilate(key);
-  const unsigned int y = undilate(key >> 1);
-  const unsigned int z = undilate(key >> 2);
+  //Mask for casting Morton code to the form that could be used by `undilate`.
+  //It should have ones as 0th, 3rd, 6th ... 60th bits and zeros as others.
+  const MortonKey mask = 164703072086692425;
+
+  const MortonKey x_bits = key & mask;
+  const MortonKey y_bits = (key >> 1) & mask;
+  const MortonKey z_bits = (key >> 2) & mask;
+
+  const unsigned int x = undilate(x_bits);
+  const unsigned int y = undilate(y_bits);
+  const unsigned int z = undilate(z_bits);
+
   return make_uint3(x, y, z);
 }
 
