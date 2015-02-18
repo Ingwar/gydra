@@ -2,7 +2,7 @@
 #include <cassert>
 #include <limits>
 
-#include "morton_order.h"
+#include "morton_code.h"
 
 namespace gydra {
 

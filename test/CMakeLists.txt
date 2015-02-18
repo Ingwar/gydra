@@ -9,16 +9,16 @@ add_subdirectory(utils)
 
 set(
   MORTON_TESTS
-  octree/morton_tests/matchers/morton_order.cu
-  octree/morton_tests/property/morton_order.cu
+  octree/morton_tests/matchers/morton_code.cu
+  octree/morton_tests/property/morton_code.cu
   octree/morton_tests/utils.cpp
   octree/morton_tests/helpers_test.cu
   octree/morton_tests/short_dilation_test.cu octree/morton_tests/dilation_test.cu
   octree/morton_tests/short_undilation_test.cu octree/morton_tests/undilation_test.cu
   octree/morton_tests/short_dilation_and_undilation_test.cu octree/morton_tests/dilation_and_undilation_test.cu
-  octree/morton_tests/morton_order_calculation_test.cu
-  octree/morton_tests/morton_order_reversion_test.cu
-  octree/morton_tests/morton_order_revertibility_test.cu
+  octree/morton_tests/morton_code_calculation_test.cu
+  octree/morton_tests/morton_code_reversion_test.cu
+  octree/morton_tests/morton_code_revertibility_test.cu
 )
 
 set(OCTREE_TESTS octree/find_bounding_box_test.cu ${MORTON_TESTS})

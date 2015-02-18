@@ -25,9 +25,9 @@ typedef unsigned long long uint64;
 //Check (at compile time) that uint64 is really at least 64 bit long
 BOOST_STATIC_ASSERT_MSG(std::numeric_limits<uint64>::digits >= 64, "64-bit unsigned integer is not available");
 
-/** Type alias for MortonKey.
+/** Type alias for MortonCode.
  */
-typedef uint64 MortonKey; 
+typedef uint64 MortonCode;
 
 /** Compute Morton Z-order for point with given coordinates.
  *
@@ -41,7 +41,7 @@ typedef uint64 MortonKey;
  * @param coordinates integer coordinates of point
  * @returns Morton code for given coordinates
  */
-__host__ __device__ MortonKey get_morton_key(const uint3& coordinates);
+__host__ __device__ MortonCode compute_morton_code(const uint3& coordinates);
 
 /** Compute coordinates for given Morton code.
  *
@@ -50,12 +50,12 @@ __host__ __device__ MortonKey get_morton_key(const uint3& coordinates);
  * `get_coordinates_for_key(get_morton_key(point)) == point`
  * will be true only for points with every coordinate less then \f$2^{20}\f$
  *
- * @see get_morton_key for calculating Morton code for given coordinates
+ * @see compute_morton_code for calculating Morton code for given coordinates
  *
  * @param key Morton code  
  * @returns coordinates corresponding to give Morton code
  */
-__host__ __device__ uint3 get_coordinates_for_key(const MortonKey key);
+__host__ __device__ uint3 get_coordinates_for_code(const MortonCode code);
 
 /** Miscellaneous functions, constants and typedefs used in computation of Morton order.
  *  These helpers are not intended for public use and they are put in the header

@@ -8,7 +8,7 @@
 
 #include "../utils.h"
 
-#include "morton_order.h"
+#include "morton_code.h"
 
 
 namespace gydra {
@@ -29,31 +29,31 @@ using gydra::testing::utils::as_ordinal;
 MortonCodeMatcher::MortonCodeMatcher(const uint3& p): point(p), x_bits(p.x), y_bits(p.y), z_bits(p.z), dilation_rank(3), dilated_integer_length(60) {
 }
 
-bool MortonCodeMatcher::MatchAndExplain(MortonKey arg, MatchResultListener* result_listener) const {
-  const std::bitset< SizeInfo<MortonKey>::size_in_bits > arg_bits(arg);
+bool MortonCodeMatcher::MatchAndExplain(MortonCode arg, MatchResultListener* result_listener) const {
+  const std::bitset< SizeInfo<MortonCode>::size_in_bits > arg_bits(arg);
   for (size_t i = 0; i < dilated_integer_length / dilation_rank; i++) {
 
     const bool x_bit = x_bits.test(i);
-    const size_t index_of_x_bit_in_the_morton_key = dilation_rank * i;
-    const bool x_bit_in_the_morton_key = arg_bits.test(index_of_x_bit_in_the_morton_key);
-    if (x_bit != x_bit_in_the_morton_key) {
-      reportErrorInTheXBit(arg_bits, index_of_x_bit_in_the_morton_key, i, result_listener);
+    const size_t index_of_x_bit_in_the_morton_code = dilation_rank * i;
+    const bool x_bit_in_the_morton_code = arg_bits.test(index_of_x_bit_in_the_morton_code);
+    if (x_bit != x_bit_in_the_morton_code) {
+      reportErrorInTheXBit(arg_bits, index_of_x_bit_in_the_morton_code, i, result_listener);
       return false;
     }
 
     const bool y_bit = y_bits.test(i);
-    const size_t index_of_y_bit_in_the_morton_key = dilation_rank * i + 1;
-    const bool y_bit_in_the_morton_key = arg_bits.test(index_of_y_bit_in_the_morton_key);
-    if (y_bit != y_bit_in_the_morton_key) {
-      reportErrorInTheYBit(arg_bits, index_of_x_bit_in_the_morton_key, i, result_listener);
+    const size_t index_of_y_bit_in_the_morton_code = dilation_rank * i + 1;
+    const bool y_bit_in_the_morton_code = arg_bits.test(index_of_y_bit_in_the_morton_code);
+    if (y_bit != y_bit_in_the_morton_code) {
+      reportErrorInTheYBit(arg_bits, index_of_x_bit_in_the_morton_code, i, result_listener);
       return false;
     }
 
     const bool z_bit = z_bits.test(i);
-    const size_t index_of_z_bit_in_the_morton_key = dilation_rank * i + 2;
-    const bool z_bit_in_the_morton_key = arg_bits.test(index_of_z_bit_in_the_morton_key);
-    if (z_bit != z_bit_in_the_morton_key) {
-      reportErrorInTheZBit(arg_bits, index_of_z_bit_in_the_morton_key, i, result_listener);
+    const size_t index_of_z_bit_in_the_morton_code = dilation_rank * i + 2;
+    const bool z_bit_in_the_morton_code = arg_bits.test(index_of_z_bit_in_the_morton_code);
+    if (z_bit != z_bit_in_the_morton_code) {
+      reportErrorInTheZBit(arg_bits, index_of_z_bit_in_the_morton_code, i, result_listener);
       return false;
     }
 
@@ -118,7 +118,7 @@ void MortonCodeMatcher::reportError(
 }
 
 
-MortonCodeReversionMatcher::MortonCodeReversionMatcher(const MortonKey code):
+MortonCodeReversionMatcher::MortonCodeReversionMatcher(const MortonCode code):
   morton_code(code), morton_code_bits(code), dilation_rank(3), dilated_integer_length(60) {
 }
 

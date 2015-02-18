@@ -4,7 +4,7 @@
 
 #include <test/utils/matchers/bitwise.h>
 #include <test/property/numeric.h>
-#include "matchers/morton_order.h"
+#include "matchers/morton_code.h"
 
 #include "utils.h"
 
@@ -29,18 +29,18 @@ class PropertyTestForAllIntegersHavingLessThan20SignificantBits : public gydra::
 };
 
 
-class MortonCodeReversionTest : public PropertyTestForAllIntegersHavingLessThan20SignificantBits<MortonKey> {
+class MortonCodeReversionTest : public PropertyTestForAllIntegersHavingLessThan20SignificantBits<MortonCode> {
 };
 
 
-PROPERTY_TEST(MortonCodeReversionTest, coordinates_returned_by_get_coordinates_for_key_should_be_correct_reversion_of_morton_code, morton_code) {
-  const uint3 coordinates = get_coordinates_for_key(morton_code);
+PROPERTY_TEST(MortonCodeReversionTest, coordinates_returned_by_get_coordinates_for_code_should_be_correct_reversion_of_morton_code, morton_code) {
+  const uint3 coordinates = get_coordinates_for_code(morton_code);
 
   ASSERT_THAT(coordinates, IsCorrectReversionOfMortonCode(morton_code));
 }
 
-PROPERTY_TEST(MortonCodeReversionTest, coordinates_returned_by_get_coordinates_for_key_should_have_no_more_than_20_bits, morton_code) {
-  const uint3 coordinates = get_coordinates_for_key(morton_code);
+PROPERTY_TEST(MortonCodeReversionTest, coordinates_returned_by_get_coordinates_for_code_should_have_no_more_than_20_bits, morton_code) {
+  const uint3 coordinates = get_coordinates_for_code(morton_code);
 
   ASSERT_THAT(coordinates.x, HasNoMoreThanNSignificantBits(20));
   ASSERT_THAT(coordinates.y, HasNoMoreThanNSignificantBits(20));

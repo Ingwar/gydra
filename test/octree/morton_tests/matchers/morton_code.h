@@ -17,13 +17,13 @@ namespace morton {
 namespace test {
 
 
-class MortonCodeMatcher : public ::testing::MatcherInterface<MortonKey> {
+class MortonCodeMatcher : public ::testing::MatcherInterface<MortonCode> {
 
  public:
 
   MortonCodeMatcher(const uint3& p);
 
-  bool MatchAndExplain(MortonKey arg, ::testing::MatchResultListener* result_listener) const;
+  bool MatchAndExplain(MortonCode arg, ::testing::MatchResultListener* result_listener) const;
 
   void DescribeTo(::std::ostream* os) const;
 
@@ -79,7 +79,7 @@ class MortonCodeMatcher : public ::testing::MatcherInterface<MortonKey> {
 class MortonCodeReversionMatcher: public ::testing::MatcherInterface<const uint3&> {
 
  public:
-  MortonCodeReversionMatcher(const MortonKey code);
+  MortonCodeReversionMatcher(const MortonCode code);
 
   bool MatchAndExplain(const uint3& arg, ::testing::MatchResultListener* result_listener) const;
 
@@ -91,8 +91,8 @@ class MortonCodeReversionMatcher: public ::testing::MatcherInterface<const uint3
 
   typedef boost::function<void (const unsigned int, const size_t, const size_t)> errorReporter;
 
-  MortonKey morton_code;
-  const std::bitset< gydra::testing::matchers::SizeInfo< MortonKey >::size_in_bits > morton_code_bits;
+  MortonCode morton_code;
+  const std::bitset< gydra::testing::matchers::SizeInfo< MortonCode >::size_in_bits > morton_code_bits;
 
   const unsigned int dilation_rank;
   const unsigned int dilated_integer_length;
@@ -138,12 +138,12 @@ class MortonCodeReversionMatcher: public ::testing::MatcherInterface<const uint3
 };
 
 
-inline ::testing::Matcher<MortonKey> IsCorrectMortonCodeForPoint(const uint3& point) {
+inline ::testing::Matcher<MortonCode> IsCorrectMortonCodeForPoint(const uint3& point) {
   return ::testing::MakeMatcher(new MortonCodeMatcher(point));
 }
 
 
-inline ::testing::Matcher<const uint3&> IsCorrectReversionOfMortonCode(const MortonKey morton_code) {
+inline ::testing::Matcher<const uint3&> IsCorrectReversionOfMortonCode(const MortonCode morton_code) {
   return ::testing::MakeMatcher(new MortonCodeReversionMatcher(morton_code));
 }
 

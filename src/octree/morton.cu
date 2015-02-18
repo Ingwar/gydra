@@ -12,21 +12,21 @@ namespace morton {
 
 using namespace helpers;
 
-__host__ __device__ MortonKey get_morton_key(const uint3& coordinates) {
+__host__ __device__ MortonCode compute_morton_code(const uint3& coordinates) {
   const uint64 dilated_x = dilate(coordinates.x);
   const uint64 dilated_y = dilate(coordinates.y);
   const uint64 dilated_z = dilate(coordinates.z);
   return dilated_x | dilated_y << 1 | dilated_z << 2;
 }
 
-__host__ __device__ uint3 get_coordinates_for_key(const MortonKey key) {
+__host__ __device__ uint3 get_coordinates_for_code(const MortonCode code) {
   //Mask for casting Morton code to the form that could be used by `undilate`.
   //It should have ones as 0th, 3rd, 6th ... 60th bits and zeros as others.
-  const MortonKey mask = 164703072086692425;
+  const MortonCode mask = 164703072086692425;
 
-  const MortonKey x_bits = key & mask;
-  const MortonKey y_bits = (key >> 1) & mask;
-  const MortonKey z_bits = (key >> 2) & mask;
+  const MortonCode x_bits = code & mask;
+  const MortonCode y_bits = (code >> 1) & mask;
+  const MortonCode z_bits = (code >> 2) & mask;
 
   const unsigned int x = undilate(x_bits);
   const unsigned int y = undilate(y_bits);
@@ -35,7 +35,7 @@ __host__ __device__ uint3 get_coordinates_for_key(const MortonKey key) {
   return make_uint3(x, y, z);
 }
 
-namespace helpers {
+namespace helpers{
 
 namespace {
 
