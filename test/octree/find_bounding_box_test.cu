@@ -10,7 +10,7 @@
 
 #include <gydra.h>
 
-#include <src/octree/enclosing_volume.h>
+#include <src/octree/bounding_box.h>
 
 
 namespace gydra {
@@ -36,10 +36,10 @@ class Point {
 
 };
 
-class FindCircumScribedVolumeTest : public testing::Test {
+class FindBoundingBoxTest : public testing::Test {
 
  public:
-  FindCircumScribedVolumeTest() : N(10000) {
+  FindBoundingBoxTest() : N(10000) {
     const real low_coordinate_boundary = std::numeric_limits<real>::min();
     const real high_coordinate_boundary = std::numeric_limits<real>::max();
 
@@ -105,15 +105,15 @@ class FindCircumScribedVolumeTest : public testing::Test {
 
 };
 
-TEST_F(FindCircumScribedVolumeTest, ShouldWorkOnGPU) {
+TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 
     thrust::device_vector<Point> device_data = data;
 
-    RectangularRegion result = find_circumscribed_volume(device_data.begin(), device_data.end());
+    BoundingBox bounding_box = find_bounding_box(device_data.begin(), device_data.end());
 
-    real3 left_bottom_rear = result.getLeftBottomRear();
+    real3 left_bottom_rear = bounding_box.getLeftBottomRear();
 
-    real3 rigth_top_front = result.getRightTopFront();
+    real3 rigth_top_front = bounding_box.getRightTopFront();
 
     ASSERT_FLOAT_EQ(min_x, left_bottom_rear.x);
     ASSERT_FLOAT_EQ(min_y, left_bottom_rear.y);
@@ -124,13 +124,13 @@ TEST_F(FindCircumScribedVolumeTest, ShouldWorkOnGPU) {
     ASSERT_FLOAT_EQ(max_z, rigth_top_front.z);
 }
 
-TEST_F(FindCircumScribedVolumeTest, ShouldWorkOnCPU) {
+TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
 
-    RectangularRegion result = find_circumscribed_volume(data.begin(), data.end());
+    BoundingBox bounding_box = find_bounding_box(data.begin(), data.end());
 
-    real3 left_bottom_rear = result.getLeftBottomRear();
+    real3 left_bottom_rear = bounding_box.getLeftBottomRear();
 
-    real3 rigth_top_front = result.getRightTopFront();
+    real3 rigth_top_front = bounding_box.getRightTopFront();
 
     ASSERT_FLOAT_EQ(min_x, left_bottom_rear.x);
     ASSERT_FLOAT_EQ(min_y, left_bottom_rear.y);

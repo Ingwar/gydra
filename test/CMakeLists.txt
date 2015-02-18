@@ -21,7 +21,7 @@ set(
   octree/morton_tests/morton_order_revertibility_test.cu
 )
 
-set(OCTREE_TESTS octree/find_enclosing_volume_test.cu ${MORTON_TESTS})
+set(OCTREE_TESTS octree/find_bounding_box_test.cu ${MORTON_TESTS})
 
 set(TEST_SOURCES test_runner.cpp ${OCTREE_TESTS})
 
