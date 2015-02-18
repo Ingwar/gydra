@@ -2,7 +2,6 @@
 
 #include <src/octree/morton.h>
 
-#include <test/property/property.h>
 #include <test/property/numeric.h>
 #include <test/utils/matchers/bitwise.h>
 

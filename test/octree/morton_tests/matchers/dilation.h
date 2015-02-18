@@ -1,5 +1,5 @@
-#ifndef GYDRA_TEST_OCTREE_MORTON_MATCHERS_H_
-#define GYDRA_TEST_OCTREE_MORTON_MATCHERS_H_
+#ifndef GYDRA_TEST_OCTREE_MORTON_DILATION_MATCHERS_H_
+#define GYDRA_TEST_OCTREE_MORTON_DILATION_MATCHERS_H_
 
 #include <bitset>
 #include <limits>
@@ -267,4 +267,4 @@ inline ::testing::PolymorphicMatcher< impl::UndilationMatcher<T> > IsUndilationO
 
 } //  namespace gydra
 
-#endif  // GYDRA_TEST_OCTREE_MORTON_MATCHERS_H_
+#endif  // GYDRA_TEST_OCTREE_MORTON_DILATION_MATCHERS_H_
