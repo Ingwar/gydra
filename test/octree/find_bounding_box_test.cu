@@ -1,8 +1,7 @@
 #include <limits>
+#include <ctime>
 
 #include <gtest/gtest.h>
-
-#include <cuda_runtime.h>
 
 #include <thrust/host_vector.h>
 #include <thrust/device_vector.h>
@@ -40,6 +39,8 @@ class FindBoundingBoxTest : public testing::Test {
 
  public:
   FindBoundingBoxTest() : N(10000) {
+    rng = thrust::default_random_engine(std::time(NULL));
+
     const real low_coordinate_boundary = std::numeric_limits<real>::min();
     const real high_coordinate_boundary = std::numeric_limits<real>::max();
 

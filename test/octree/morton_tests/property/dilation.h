@@ -2,6 +2,7 @@
 #define GYDRA_TEST_OCTREE_MORTON_PROPERTY_H_
 
 #include <cstdlib>
+#include <ctime>
 #include <bitset>
 
 #include <test/property/property.h>
@@ -30,10 +31,15 @@ class DilatedIntegerPropertyTest : public gydra::testing::property::PropertyTest
  protected:
   T GenerateCase() {
     std::bitset< SizeInfo<T>::size_in_bits > bits;
+
+    //initialize random number generator
+    srand (time(NULL));
+
     for (size_t i = 0; i < dilated_integer_size; i += 3) {
       const bool current_bit = rand() % 2 == 1;
       bits.set(i, current_bit);
     }
+
     return bits.to_ulong();
   }
 
