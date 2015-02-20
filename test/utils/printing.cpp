@@ -14,10 +14,10 @@ namespace {
 /** Returns suffix of ordinal corresponding to given digit.
  *
  * @param digit unsigned integer between 0 and 9 (inclusively)
- * @returns suffix of ordinal corresponding to given digit ("st", "snd")
+ * @returns suffix of ordinal corresponding to given digit (e.g., "st", "nd", "th")
  */
 std::string get_ordinal_suffix_for_digit(const size_t digit) {
-  assert((0 <= digit) && (digit <= 9));
+  assert(digit <= 9);
 
   switch(digit) {
     case 1: return "st";
