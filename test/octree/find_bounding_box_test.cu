@@ -21,11 +21,11 @@ class Point {
   real3 position;
 
  public:
-  Point () {
+ __host__ __device__ Point () {
     position = make_real3(0, 0, 0);
   }
 
-  Point(real x, real y, real z) {
+  __host__ __device__ Point(real x, real y, real z) {
     position = make_real3(x, y, z);
   }
 
