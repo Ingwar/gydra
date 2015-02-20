@@ -6,9 +6,7 @@ cmake_minimum_required(VERSION 2.8.7)
 option(build_gydra_tests "Build tests for Gydra." ON)
 
 # Enable warnings and optimisation.
-# Warnings for unused local typedefs are suppressed because Thrust headers
-# generate a lot of them.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-unused-local-typedefs -O2")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall")
 
 find_package(CUDA REQUIRED)
 find_package(Boost REQUIRED)
