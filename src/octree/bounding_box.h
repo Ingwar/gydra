@@ -1,6 +1,4 @@
 /** @file */
-#pragma once
-
 #ifndef GYDRA_OCTREE_ENCLOSING_VOLUME_H_
 #define GYDRA_OCTREE_ENCLOSING_VOLUME_H_
 
@@ -19,6 +17,9 @@ namespace gydra {
 /** Namespace containing classes and functions for creating octrees on GPU.
  */
 namespace octree {
+
+namespace bounding_box {
+
 
 /** Class representing rectangular region of space.
  *
@@ -70,7 +71,7 @@ class BoundingBox {
 
 /** Internal namespace for helper classes
  */
-namespace bounding_box_helpers {
+namespace helpers {
 
 /** Function object for creating degenerate `BoundingBox` from other object position.
  *
@@ -149,7 +150,7 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
 
 };
 
-}  // namespace bounding_box_helpers
+}  // namespace helpers
 
 /** Finds rectangular circumscribed volume for given set of points.
  *
@@ -165,16 +166,19 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
 template <typename InputIterator>
 BoundingBox find_bounding_box(const InputIterator& first, const InputIterator& last) {
 
-  typedef typename thrust::iterator_value<InputIterator>::type T;
+  typedef typename thrust::iterator_value<InputIterator>::type Point;
 
-  const bounding_box_helpers::ToBoundingBox<T> to_bounding_box;
-  const bounding_box_helpers::MergeBoundingBoxes merge_boxes;
+  const helpers::ToBoundingBox<Point> to_bounding_box;
+  const helpers::MergeBoundingBoxes merge_boxes;
 
   const BoundingBox initial_bounding_box = to_bounding_box(*first);
 
   const BoundingBox box = transform_reduce(first, last, to_bounding_box, initial_bounding_box, merge_boxes);
   return box;
 }
+
+
+}  // namespace bounding_box
 
 }  // namespace octree
 

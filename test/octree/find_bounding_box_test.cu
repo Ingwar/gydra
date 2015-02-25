@@ -16,6 +16,11 @@ namespace gydra {
 
 namespace octree {
 
+namespace bounding_box {
+
+namespace test {
+
+
 class Point {
 
   real3 position;
@@ -34,6 +39,7 @@ class Point {
   }
 
 };
+
 
 class FindBoundingBoxTest : public testing::Test {
 
@@ -106,6 +112,7 @@ class FindBoundingBoxTest : public testing::Test {
 
 };
 
+
 TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 
     thrust::device_vector<Point> device_data = data;
@@ -125,6 +132,7 @@ TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
     ASSERT_FLOAT_EQ(max_z, rigth_top_front.z);
 }
 
+
 TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
 
     BoundingBox bounding_box = find_bounding_box(data.begin(), data.end());
@@ -141,6 +149,11 @@ TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
     ASSERT_FLOAT_EQ(max_y, rigth_top_front.y);
     ASSERT_FLOAT_EQ(max_z, rigth_top_front.z);
 }
+
+
+}  //namespace test
+
+}  //namespace bounding_box
 
 }  // namespace octree
 
