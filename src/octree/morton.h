@@ -1,13 +1,10 @@
 /** @file */
-
 #ifndef GYDRA_OCTREE_MORTON_H_
 #define GYDRA_OCTREE_MORTON_H_
 
 #include <boost/static_assert.hpp>
 #include <limits>
 
-//Forward declaration of CUDA uint3
-struct uint3;
 
 namespace gydra {
 
@@ -29,6 +26,7 @@ BOOST_STATIC_ASSERT_MSG(std::numeric_limits<uint64>::digits >= 64, "64-bit unsig
  */
 typedef uint64 MortonCode;
 
+
 /** Compute Morton Z-order for point with given coordinates.
  *
  * @warning Only first 20 bits of each coordinate will be used
@@ -42,6 +40,7 @@ typedef uint64 MortonCode;
  * @returns Morton code for given coordinates
  */
 __host__ __device__ MortonCode compute_morton_code(const uint3& coordinates);
+
 
 /** Compute coordinates for given Morton code.
  *
@@ -57,6 +56,7 @@ __host__ __device__ MortonCode compute_morton_code(const uint3& coordinates);
  */
 __host__ __device__ uint3 get_coordinates_for_code(const MortonCode code);
 
+
 /** Miscellaneous functions, constants and typedefs used in computation of Morton order.
  *  These helpers are not intended for public use and they are put in the header
  *  only for testing purposes. 
@@ -67,12 +67,14 @@ const unsigned int DILATION_SIZE = 10;
 
 const unsigned int DILATED_INTEGER_LENGTH = 60;
 
+
 /** Extract first 10 bits of the unsigned integer.
  *
  * @param number
  * @return unsigned integer with first 10 bits equal to the first 10 bits of arguments and others set to zero
  */
 __host__ __device__ unsigned int get_first_10_bits_of_number(const unsigned int number);
+
 
 /** Extract second 10 bits of unsigned integer.
  *
@@ -90,11 +92,12 @@ __host__ __device__ unsigned int get_first_10_bits_of_number(const unsigned int 
  * cout << result; // prints "5", binary representation is "101"
  *
  * @endcode
-
+ *
  * @param number
  * @return unsigned integer with first 10 bits equal to the second 10 bits of argument and others set to zero
  */
 __host__ __device__ unsigned int get_second_10_bits_of_number(const unsigned int number);
+
 
 /** Extract first 30 bits of the 64-bit unsigned integer.
  *
@@ -102,6 +105,7 @@ __host__ __device__ unsigned int get_second_10_bits_of_number(const unsigned int
  * @return unsigned integer with first 30 bits equals to first 30 bits of argument and others set to zero
  */
 __host__ __device__ unsigned int get_first_bits_of_dilated_number(const uint64 number);
+
 
 /** Extract second 30 bits of the 64-bit unsigned integer.
  *
@@ -125,6 +129,7 @@ __host__ __device__ unsigned int get_first_bits_of_dilated_number(const uint64 n
  *
  */
 __host__ __device__ unsigned int get_second_bits_of_dilated_number(const uint64 number);
+
 
 /** Interleaves first 10 bits of integer with zeros.
  *
@@ -151,6 +156,7 @@ __host__ __device__ unsigned int get_second_bits_of_dilated_number(const uint64 
  */
 __host__ __device__ unsigned int dilate_short(const unsigned int number);
 
+
 /** Reverse dilation (if orifinal number was less than \f$2^{10}\f$).
  *
  * This function takes each third bit of unsigned integer from 0th to 27th
@@ -166,7 +172,7 @@ __host__ __device__ unsigned int dilate_short(const unsigned int number);
  * cout << result; // prints "11", binary representation is "1011"
  *
  * @endcode
-
+ *
  *
  * @see dilate_short --- reverse operation
  *
@@ -174,6 +180,7 @@ __host__ __device__ unsigned int dilate_short(const unsigned int number);
  * @returns dilated integer 
  */
 __host__ __device__ unsigned int undilate_short(const unsigned int number);
+
 
 /** Interleaves first 20 butes of integer with zeros.
  *
@@ -198,6 +205,7 @@ __host__ __device__ unsigned int undilate_short(const unsigned int number);
  */
 __host__ __device__ uint64 dilate(const unsigned int number);
 
+
 /** Reverse dilation (if orifinal number was less than \f$2^{20}\f$).
  *
  * This function takes each third bit of 64-bit unsigned integer from 0th to 57th
@@ -219,6 +227,7 @@ __host__ __device__ uint64 dilate(const unsigned int number);
  * @param number
  */
 __host__ __device__ unsigned int undilate(const uint64 dilated_number);
+
 
 }  // namespace helpers
 

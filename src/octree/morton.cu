@@ -1,8 +1,7 @@
-#include <cuda_runtime.h>
-
 #include <gydra.h>
 
 #include "morton.h"
+
 
 namespace gydra {
 
@@ -12,12 +11,14 @@ namespace morton {
 
 using namespace helpers;
 
+
 __host__ __device__ MortonCode compute_morton_code(const uint3& coordinates) {
   const uint64 dilated_x = dilate(coordinates.x);
   const uint64 dilated_y = dilate(coordinates.y);
   const uint64 dilated_z = dilate(coordinates.z);
   return dilated_x | dilated_y << 1 | dilated_z << 2;
 }
+
 
 __host__ __device__ uint3 get_coordinates_for_code(const MortonCode code) {
   //Mask for casting Morton code to the form that could be used by `undilate`.
@@ -34,6 +35,7 @@ __host__ __device__ uint3 get_coordinates_for_code(const MortonCode code) {
 
   return make_uint3(x, y, z);
 }
+
 
 namespace helpers{
 
@@ -53,6 +55,7 @@ const uint64 SECOND_DILATED_BITS_MASK = ((1ull << DILATED_INTEGER_LENGTH) - 1) ^
 
 } //  namespace
 
+
 __host__ __device__ uint64 dilate(const unsigned int number) {
   //Dilate first 10 bits
   const unsigned int first_10_bits = get_first_10_bits_of_number(number);
@@ -64,6 +67,7 @@ __host__ __device__ uint64 dilate(const unsigned int number) {
   const uint64 dilated_number = first_10_bits_dilated | (second_10_bits_dilated << (3 * DILATION_SIZE));
   return dilated_number;
 }
+
 
 __host__ __device__ unsigned int undilate(const uint64 dilated_number) {
   //undilate first 10 bits
@@ -77,6 +81,7 @@ __host__ __device__ unsigned int undilate(const uint64 dilated_number) {
   return result;
 }
 
+
 __host__ __device__ unsigned int dilate_short(const unsigned int number) {
   unsigned int result = number;
   result = (result * 0x10001) & 0xFF0000FF;
@@ -86,6 +91,7 @@ __host__ __device__ unsigned int dilate_short(const unsigned int number) {
   return result;
 }
 
+
 __host__ __device__ unsigned int undilate_short(const unsigned int number) {
   unsigned int result = (number * 0x00015) & 0x0E070381;
   result = (result * 0x01041) & 0x0FF80001;
@@ -93,21 +99,27 @@ __host__ __device__ unsigned int undilate_short(const unsigned int number) {
   return result >> 18;
 }
 
+
 __host__ __device__ unsigned int get_first_10_bits_of_number(const unsigned int number) {
   return number & FIRST_TEN_BITS_MASK;
 }
+
 
 __host__ __device__ unsigned int get_second_10_bits_of_number(const unsigned int number) {
   return (number & SECOND_TEN_BITS_MASK) >> DILATION_SIZE;
 }
 
+
 __host__ __device__ unsigned int get_first_bits_of_dilated_number(const uint64 number) {
   return number & FIRST_DILATED_BITS_MASK;
+
 }
+
 
 __host__ __device__ unsigned int get_second_bits_of_dilated_number(const uint64 number) {
   return (number & SECOND_DILATED_BITS_MASK) >> (DILATED_INTEGER_LENGTH / 2);
 }
+
 
 }  // namespace helpers
 
@@ -116,4 +128,3 @@ __host__ __device__ unsigned int get_second_bits_of_dilated_number(const uint64 
 } //  namespace octree
 
 } //  namespace gydra
-
