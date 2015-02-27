@@ -8,6 +8,13 @@ include(GMock.cmake)
 add_subdirectory(utils)
 
 set(
+  BOUNDING_BOX_TESTS
+  octree/find_bounding_box_test.cu
+  octree/bounding_box_tests/test_bounding_box.cu
+  octree/bounding_box_tests/operators.cu
+)
+
+set(
   MORTON_TESTS
   octree/morton_tests/matchers/morton_code.cu
   octree/morton_tests/property/morton_code.cu
@@ -21,7 +28,7 @@ set(
   octree/morton_tests/morton_code_revertibility_test.cu
 )
 
-set(OCTREE_TESTS octree/find_bounding_box_test.cu ${MORTON_TESTS})
+set(OCTREE_TESTS ${BOUNDING_BOX_TESTS} ${MORTON_TESTS})
 
 set(TEST_SOURCES test_runner.cpp ${OCTREE_TESTS})
 

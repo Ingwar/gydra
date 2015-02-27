@@ -1,16 +1,15 @@
 /** @file */
-#ifndef GYDRA_OCTREE_ENCLOSING_VOLUME_H_
-#define GYDRA_OCTREE_ENCLOSING_VOLUME_H_
+#ifndef GYDRA_OCTREE_BOUNDING_BOX_H_
+#define GYDRA_OCTREE_BOUNDING_BOX_H_
 
 #include <cassert>
-
-#include <cuda_runtime.h>
 
 #include <thrust/transform_reduce.h>
 #include <thrust/functional.h>
 #include <thrust/extrema.h>
 
 #include <gydra.h>
+
 
 namespace gydra {
 
@@ -26,11 +25,6 @@ namespace bounding_box {
  *  It's intended to be used as a bounding box representation.
  */
 class BoundingBox {
-
- private:
-  real3 left_bottom_rear;
-
-  real3 rigth_top_front;
 
  public:
   /** Creates new instance of `BoundingBox` with both corners at x=0, y=0, z=0.
@@ -66,6 +60,56 @@ class BoundingBox {
   __host__ __device__ const real3& getRightTopFront() const {
     return rigth_top_front;
   }
+
+  /** Returns width of the bounding box.
+   *
+   * Width is a size of bounding box along the `x` dimension.
+   *
+   * @returns the distance between the leftmost and the rightmost
+   *  points of the bounding box along the `x` axis
+   */
+  __host__ __device__ real get_width() const {
+    return rigth_top_front.x - left_bottom_rear.x;
+  }
+
+  /** Returns length of the bounding box.
+   *
+   * Length is a size of bounding box along the `y` dimension.
+   *
+   * @returns the distance between the rearmost and the front
+   *  points of the bounding box along the `y` axis
+   */
+  __host__ __device__ real get_length() const {
+    return rigth_top_front.y - left_bottom_rear.y;
+  }
+
+  /** Returns height of the bounding box.
+   *
+   * Height is a size of bounding box along the `z` dimension.
+   *
+   * @returns the distance between the bottommost and the topmost
+   *  points of the bounding box along the `z` axis
+   */
+  __host__ __device__ real get_height() const {
+    return rigth_top_front.z - left_bottom_rear.z;
+  }
+
+  /** Returns the length of the longest edge of the bouding box.
+   */
+  __host__ __device__ real get_longest_edge() const {
+    return thrust::max(thrust::max(get_width(), get_height()), get_length());
+  }
+
+  /** Returns the length of the shortest edge of the bouding box.
+   */
+  __host__ __device__ real get_shortest_edge() const {
+    return thrust::min(thrust::max(get_width(), get_height()), get_length());
+  }
+
+ private:
+  real3 left_bottom_rear;
+
+  real3 rigth_top_front;
 
 };
 
@@ -184,4 +228,4 @@ BoundingBox find_bounding_box(const InputIterator& first, const InputIterator& l
 
 }  // namespace gydra
 
-#endif // GYDRA_OCTREE_ENCLOSING_VOLUME_H_
+#endif // GYDRA_OCTREE_BOUNDING_BOX_H_

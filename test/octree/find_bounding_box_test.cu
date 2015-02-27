@@ -22,9 +22,6 @@ namespace test {
 
 
 class Point {
-
-  real3 position;
-
  public:
  __host__ __device__ Point () {
     position = make_real3(0, 0, 0);
@@ -37,6 +34,9 @@ class Point {
   __host__ __device__ real3 getPosition() const {
     return position;
   }
+
+ private:
+  real3 position;
 
 };
 
