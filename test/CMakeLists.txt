@@ -9,8 +9,8 @@ add_subdirectory(utils)
 
 set(
   BOUNDING_BOX_TESTS
-  octree/find_bounding_box_test.cu
   octree/bounding_box_tests/test_bounding_box.cu
+  octree/bounding_box_tests/find_bounding_box_test.cu
   octree/bounding_box_tests/operators.cu
 )
 
