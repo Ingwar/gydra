@@ -119,9 +119,9 @@ TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 
     BoundingBox bounding_box = find_bounding_box(device_data.begin(), device_data.end());
 
-    real3 left_bottom_rear = bounding_box.getLeftBottomRear();
+    real3 left_bottom_rear = bounding_box.get_left_bottom_rear();
 
-    real3 rigth_top_front = bounding_box.getRightTopFront();
+    real3 rigth_top_front = bounding_box.get_right_top_front();
 
     ASSERT_FLOAT_EQ(min_x, left_bottom_rear.x);
     ASSERT_FLOAT_EQ(min_y, left_bottom_rear.y);
@@ -137,9 +137,9 @@ TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
 
     BoundingBox bounding_box = find_bounding_box(data.begin(), data.end());
 
-    real3 left_bottom_rear = bounding_box.getLeftBottomRear();
+    real3 left_bottom_rear = bounding_box.get_left_bottom_rear();
 
-    real3 rigth_top_front = bounding_box.getRightTopFront();
+    real3 rigth_top_front = bounding_box.get_right_top_front();
 
     ASSERT_FLOAT_EQ(min_x, left_bottom_rear.x);
     ASSERT_FLOAT_EQ(min_y, left_bottom_rear.y);

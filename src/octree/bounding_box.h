@@ -49,7 +49,7 @@ class BoundingBox {
    *
    * @returns left-bottom-rear corner of the bounding box
    */
-  __host__ __device__ const real3& getLeftBottomRear() const {
+  __host__ __device__ const real3& get_left_bottom_rear() const {
     return left_bottom_rear;
   }
 
@@ -57,7 +57,7 @@ class BoundingBox {
    *
    *  @returns right-top-front corner of the BoundingBox
    */
-  __host__ __device__ const real3& getRightTopFront() const {
+  __host__ __device__ const real3& get_right_top_front() const {
     return rigth_top_front;
   }
 
@@ -173,9 +173,9 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
      * @returns minimum point of the given regions
      */
     __host__ __device__ real3 findMinimumPoint(const BoundingBox& one, const BoundingBox& another) const {
-    const real min_x = thrust::min(one.getLeftBottomRear().x, another.getLeftBottomRear().x);
-    const real min_y = thrust::min(one.getLeftBottomRear().y, another.getLeftBottomRear().y);
-    const real min_z = thrust::min(one.getLeftBottomRear().z, another.getLeftBottomRear().z);
+    const real min_x = thrust::min(one.get_left_bottom_rear().x, another.get_left_bottom_rear().x);
+    const real min_y = thrust::min(one.get_left_bottom_rear().y, another.get_left_bottom_rear().y);
+    const real min_z = thrust::min(one.get_left_bottom_rear().z, another.get_left_bottom_rear().z);
     return make_real3(min_x, min_y, min_z);
   }
 
@@ -186,9 +186,9 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
      * @returns maximum point of the given regions
      */
   __host__ __device__ real3 findMaximumPoint(const BoundingBox& one, const BoundingBox& another) const {
-    const real max_x = thrust::max(one.getRightTopFront().x, another.getRightTopFront().x);
-    const real max_y = thrust::max(one.getRightTopFront().y, another.getRightTopFront().y);
-    const real max_z = thrust::max(one.getRightTopFront().z, another.getRightTopFront().z);
+    const real max_x = thrust::max(one.get_right_top_front().x, another.get_right_top_front().x);
+    const real max_y = thrust::max(one.get_right_top_front().y, another.get_right_top_front().y);
+    const real max_z = thrust::max(one.get_right_top_front().z, another.get_right_top_front().z);
     return make_real3(max_x, max_y, max_z);
   }
 
