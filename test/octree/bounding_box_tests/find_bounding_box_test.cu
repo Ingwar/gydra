@@ -31,7 +31,7 @@ class Point {
     position = make_real3(x, y, z);
   }
 
-  __host__ __device__ real3 getPosition() const {
+  __host__ __device__ real3 get_position() const {
     return position;
   }
 

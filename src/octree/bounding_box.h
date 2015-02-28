@@ -122,7 +122,7 @@ namespace helpers {
  * Termin "degenerate" means that both minimal and maximal postions of the `BoundingBox`
  * instance will be equal to the position of the given object.
  *
- * @tparam T class with method `real3 getPosition() const`
+ * @tparam T class with method `real3 get_position() const`
  */
 template <typename T>
 class ToBoundingBox : public thrust::unary_function< T, BoundingBox > {
@@ -137,7 +137,7 @@ class ToBoundingBox : public thrust::unary_function< T, BoundingBox > {
    * @returns instance of `BoundingBox` with both fields equal to the `x` position
    */
   __host__ __device__ BoundingBox operator()(const T& x) const {
-    const BoundingBox result(x.getPosition(), x.getPosition());
+    const BoundingBox result(x.get_position(), x.get_position());
     return result;
   }
 
@@ -160,8 +160,8 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
    * @returns minimum rectangle that could hold both given regions
    */
   __host__ __device__ BoundingBox operator()(const BoundingBox& one, const BoundingBox& another) const {
-    const real3 left_bottom_rear = findMinimumPoint(one, another);
-    const real3 rigth_top_front = findMaximumPoint(one, another);
+    const real3 left_bottom_rear = find_minimum_point(one, another);
+    const real3 rigth_top_front = find_maximum_point(one, another);
     return BoundingBox(left_bottom_rear, rigth_top_front);
   }
 
@@ -172,7 +172,7 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
      * @param another rectangular region of space
      * @returns minimum point of the given regions
      */
-    __host__ __device__ real3 findMinimumPoint(const BoundingBox& one, const BoundingBox& another) const {
+    __host__ __device__ real3 find_minimum_point(const BoundingBox& one, const BoundingBox& another) const {
     const real min_x = thrust::min(one.get_left_bottom_rear().x, another.get_left_bottom_rear().x);
     const real min_y = thrust::min(one.get_left_bottom_rear().y, another.get_left_bottom_rear().y);
     const real min_z = thrust::min(one.get_left_bottom_rear().z, another.get_left_bottom_rear().z);
@@ -185,7 +185,7 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
      * @param another rectangular region of space
      * @returns maximum point of the given regions
      */
-  __host__ __device__ real3 findMaximumPoint(const BoundingBox& one, const BoundingBox& another) const {
+  __host__ __device__ real3 find_maximum_point(const BoundingBox& one, const BoundingBox& another) const {
     const real max_x = thrust::max(one.get_right_top_front().x, another.get_right_top_front().x);
     const real max_y = thrust::max(one.get_right_top_front().y, another.get_right_top_front().y);
     const real max_z = thrust::max(one.get_right_top_front().z, another.get_right_top_front().z);
@@ -201,7 +201,7 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
  * This function could work with data both in host and device memory.
  *
  * @tparam InputIterator **Thrust** iterator for the sequnce of objects
- *   with `real3 getPosition() const` method
+ *   with `real3 get_position() const` method
  *
  * @param first the beginning of the sequence
  * @param last the end of the sequence
