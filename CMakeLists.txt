@@ -11,14 +11,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -Wall")
 find_package(CUDA REQUIRED)
 find_package(Boost REQUIRED)
 
-# There is a conflict of noinline macros in Boost and CUDA,
-# so we need this workaround
-set(BOOST_MACRO "-DBOOST_NOINLINE='__attribute__ ((noinline))'")
-set(BOOST_COMPILATION_FIX "-Xcompiler \"${BOOST_MACRO}\"")
-
 # Minimum architecture required for usage of assertions in the device code
-# and workaround for compillation of files that include boost headers with nvcc
-set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS}; -arch=compute_20; ${BOOST_COMPILATION_FIX}")
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS}; -arch=compute_20")
 
 # Add the project top-level ("public") headers to the include paths
 include_directories(${CMAKE_SOURCE_DIR}/src/include)
