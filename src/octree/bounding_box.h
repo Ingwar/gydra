@@ -49,7 +49,7 @@ class BoundingBox {
    *
    * @returns left-bottom-rear corner of the bounding box
    */
-  __host__ __device__ const real3& get_left_bottom_rear() const {
+  __host__ __device__ real3 get_left_bottom_rear() const {
     return left_bottom_rear;
   }
 
@@ -57,7 +57,7 @@ class BoundingBox {
    *
    *  @returns right-top-front corner of the BoundingBox
    */
-  __host__ __device__ const real3& get_right_top_front() const {
+  __host__ __device__ real3 get_right_top_front() const {
     return rigth_top_front;
   }
 
