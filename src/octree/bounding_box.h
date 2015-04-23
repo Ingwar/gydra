@@ -17,6 +17,8 @@ namespace gydra {
  */
 namespace octree {
 
+/** Utils for finding bounding boxes for sets of points.
+ */
 namespace bounding_box {
 
 
@@ -113,9 +115,12 @@ class BoundingBox {
 
 };
 
-/** Internal namespace for helper classes
+/** Internal namespace for helper classes.
+ *
+ * It's not intented for public use an subject to changes.
  */
 namespace helpers {
+
 
 /** Function object for creating degenerate `BoundingBox` from other object position.
  *
@@ -142,6 +147,7 @@ class ToBoundingBox : public thrust::unary_function< T, BoundingBox > {
   }
 
 };
+
 
 /** Function object for merging two bounding boxes.
  *
@@ -194,32 +200,41 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
 
 };
 
+
 }  // namespace helpers
 
-/** Finds rectangular circumscribed volume for given set of points.
- *
- * This function could work with data both in host and device memory.
+
+/**Function objects for finding bounding box for given set of points.
  *
  * @tparam InputIterator **Thrust** iterator for the sequnce of objects
  *   with `real3 get_position() const` method
- *
- * @param first the beginning of the sequence
- * @param last the end of the sequence
- * @returns `RectangularRegion` instance representing circumscribed volume
  */
 template <typename InputIterator>
-BoundingBox find_bounding_box(const InputIterator& first, const InputIterator& last) {
+class BoundingBoxFinder {
 
+ public:
+  /** Finds bounding box for given set of points.
+   *
+   * This method could work with data both in host and device memory.
+   *
+   * @param first the beginning of the sequence
+   * @param last the end of the sequence
+   * @returns `BoundingBox` that describes bounding box for given set of points
+   */
+  BoundingBox operator()(const InputIterator& first, const InputIterator& last) const {
+    const helpers::ToBoundingBox<Point> to_bounding_box;
+    const helpers::MergeBoundingBoxes merge_boxes;
+
+    const BoundingBox initial_bounding_box = to_bounding_box(*first);
+
+    const BoundingBox box = transform_reduce(first, last, to_bounding_box, initial_bounding_box, merge_boxes);
+    return box;
+  }
+
+ private:
   typedef typename thrust::iterator_value<InputIterator>::type Point;
 
-  const helpers::ToBoundingBox<Point> to_bounding_box;
-  const helpers::MergeBoundingBoxes merge_boxes;
-
-  const BoundingBox initial_bounding_box = to_bounding_box(*first);
-
-  const BoundingBox box = transform_reduce(first, last, to_bounding_box, initial_bounding_box, merge_boxes);
-  return box;
-}
+};
 
 
 }  // namespace bounding_box

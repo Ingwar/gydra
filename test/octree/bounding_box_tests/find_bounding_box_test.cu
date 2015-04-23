@@ -116,8 +116,11 @@ class FindBoundingBoxTest : public testing::Test {
 TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 
     thrust::device_vector<Point> device_data = data;
+    typedef thrust::device_vector<Point>::const_iterator point_constant_iterator;
 
-    BoundingBox bounding_box = find_bounding_box(device_data.begin(), device_data.end());
+    BoundingBoxFinder<point_constant_iterator> find_bounding_box;
+
+    BoundingBox bounding_box = find_bounding_box(device_data.cbegin(), device_data.cend());
 
     real3 left_bottom_rear = bounding_box.get_left_bottom_rear();
 
@@ -134,8 +137,11 @@ TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 
 
 TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
+    typedef thrust::host_vector<Point>::const_iterator point_constant_iterator;
 
-    BoundingBox bounding_box = find_bounding_box(data.begin(), data.end());
+    BoundingBoxFinder<point_constant_iterator> find_bounding_box;
+
+    BoundingBox bounding_box = find_bounding_box(data.cbegin(), data.cend());
 
     real3 left_bottom_rear = bounding_box.get_left_bottom_rear();
 
