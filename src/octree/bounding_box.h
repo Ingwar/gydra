@@ -263,6 +263,17 @@ class BoundingBoxFinder: public BoundingBoxFinderInterface<InputIterator> {
 };
 
 
+/** Factory function for standart implementation of `BoundingBoxFinderInterface`.
+ *
+ * @tparam InputIterator **Thrust** iterator for the sequnce of objects
+ *   with `real3 get_position() const` method
+ */
+template <typename InputIterator>
+BoundingBoxFinderInterface<InputIterator>* make_bounding_box_finder() {
+  return new BoundingBoxFinder<InputIterator>();
+}
+
+
 }  // namespace bounding_box
 
 }  // namespace octree
