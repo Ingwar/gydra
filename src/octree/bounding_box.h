@@ -115,6 +115,32 @@ class BoundingBox {
 
 };
 
+
+/**Function object for finding bounding box for given set of points.
+ *
+ * @tparam InputIterator **Thrust** iterator for the sequnce of objects
+ *   with `real3 get_position() const` method
+ */
+template <typename InputIterator>
+class BoundingBoxFinderInterface {
+
+ public:
+
+  /** Finds bounding box for given set of points.
+   *
+   * This method could work with data both in host and device memory.
+   *
+   * @param first the beginning of the sequence
+   * @param last the end of the sequence
+   * @returns `BoundingBox` that describes bounding box for given set of points
+   */
+  virtual BoundingBox operator() (const InputIterator& first, const InputIterator& last) const = 0;
+
+  virtual ~BoundingBoxFinderInterface() {}
+
+};
+
+
 /** Internal namespace for helper classes.
  *
  * It's not intented for public use an subject to changes.
@@ -204,13 +230,13 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
 }  // namespace helpers
 
 
-/**Function objects for finding bounding box for given set of points.
+/**Function object for finding bounding box for given set of points.
  *
  * @tparam InputIterator **Thrust** iterator for the sequnce of objects
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>
-class BoundingBoxFinder {
+class BoundingBoxFinder: public BoundingBoxFinderInterface<InputIterator> {
 
  public:
   /** Finds bounding box for given set of points.
