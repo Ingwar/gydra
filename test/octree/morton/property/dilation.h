@@ -1,5 +1,5 @@
-#ifndef GYDRA_TEST_OCTREE_MORTON_PROPERTY_H_
-#define GYDRA_TEST_OCTREE_MORTON_PROPERTY_H_
+#ifndef GYDRA_TEST_OCTREE_MORTON_PROPERTY_DILATION_H_
+#define GYDRA_TEST_OCTREE_MORTON_PROPERTY_DILATION_H_
 
 #include <cstdlib>
 #include <ctime>
@@ -61,5 +61,4 @@ class DilatedIntegerPropertyTest : public gydra::testing::property::PropertyTest
 
 } //  namespace gydra
 
-#endif //  GYDRA_TEST_OCTREE_MORTON_PROPERTY_H_
-
+#endif //  GYDRA_TEST_OCTREE_MORTON_PROPERTY_DILATION_H_

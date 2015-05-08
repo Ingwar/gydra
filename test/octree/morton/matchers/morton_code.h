@@ -1,5 +1,5 @@
-#ifndef GYDRA_TEST_OCTREE_MORTON_ORDER_MATCHERS_H_
-#define GYDRA_TEST_OCTREE_MORTON_ORDER_MATCHERS_H_
+#ifndef GYDRA_TEST_OCTREE_MORTON_MATCHERS_MORTON_CODE_H_
+#define GYDRA_TEST_OCTREE_MORTON_MATCHERS_MORTON_CODE_H_
 
 #include <gmock/gmock.h>
 #include <boost/function.hpp>
@@ -156,4 +156,4 @@ inline ::testing::Matcher<const uint3&> IsCorrectReversionOfMortonCode(const Mor
 
 } //  namespace gydra
 
-#endif //  GYDRA_TEST_OCTREE_MORTON_ORDER_MATCHERS_H_
+#endif //  GYDRA_TEST_OCTREE_MORTON_MATCHERS_MORTON_CODE_H_

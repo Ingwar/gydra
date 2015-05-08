@@ -1,5 +1,5 @@
-#ifndef GYDRA_TEST_OCTREE_MORTON_ORDER_PROPERTY_H_
-#define GYDRA_TEST_OCTREE_MORTON_ORDER_PROPERTY_H_
+#ifndef GYDRA_TEST_OCTREE_MORTON_PROPERTY_MORTON_CODE_H_
+#define GYDRA_TEST_OCTREE_MORTON_PROPERTY_MORTON_CODE_H_
 
 #include <thrust/random.h>
 
@@ -55,4 +55,4 @@ class PropertyTestForAllPoints : public PropertyTestForAllPointsInside {
 
 } //  namespace gydra
 
-#endif //  GYDRA_TEST_OCTREE_MORTON_ORDER_PROPERTY_H_
+#endif //  GYDRA_TEST_OCTREE_MORTON_PROPERTY_MORTON_CODE_H_
