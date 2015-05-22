@@ -122,7 +122,7 @@ class BoundingBox {
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>
-class BoundingBoxFinderInterface {
+class BoundingBoxFinder {
 
  public:
 
@@ -136,7 +136,7 @@ class BoundingBoxFinderInterface {
    */
   virtual BoundingBox operator() (const InputIterator& first, const InputIterator& last) const = 0;
 
-  virtual ~BoundingBoxFinderInterface() {}
+  virtual ~BoundingBoxFinder() {}
 
 };
 
@@ -236,7 +236,7 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>
-class BoundingBoxFinder: public BoundingBoxFinderInterface<InputIterator> {
+class BoundingBoxFinderImplementation: public BoundingBoxFinder<InputIterator> {
 
  public:
   /** Finds bounding box for given set of points.
@@ -269,8 +269,8 @@ class BoundingBoxFinder: public BoundingBoxFinderInterface<InputIterator> {
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>
-BoundingBoxFinderInterface<InputIterator>* make_bounding_box_finder() {
-  return new BoundingBoxFinder<InputIterator>();
+BoundingBoxFinder<InputIterator>* make_bounding_box_finder() {
+  return new BoundingBoxFinderImplementation<InputIterator>();
 }
 
 

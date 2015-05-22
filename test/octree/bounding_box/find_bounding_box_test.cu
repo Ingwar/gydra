@@ -118,7 +118,7 @@ TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
     thrust::device_vector<Point> device_data = data;
     typedef thrust::device_vector<Point>::const_iterator point_constant_iterator;
 
-    BoundingBoxFinder<point_constant_iterator> find_bounding_box;
+    BoundingBoxFinderImplementation<point_constant_iterator> find_bounding_box;
 
     BoundingBox bounding_box = find_bounding_box(device_data.cbegin(), device_data.cend());
 
@@ -139,7 +139,7 @@ TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
     typedef thrust::host_vector<Point>::const_iterator point_constant_iterator;
 
-    BoundingBoxFinder<point_constant_iterator> find_bounding_box;
+    BoundingBoxFinderImplementation<point_constant_iterator> find_bounding_box;
 
     BoundingBox bounding_box = find_bounding_box(data.cbegin(), data.cend());
 
