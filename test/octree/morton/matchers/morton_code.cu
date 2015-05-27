@@ -5,8 +5,7 @@
 #include <boost/bind.hpp>
 
 #include <test/utils/printing.h>
-
-#include "../utils.h"
+#include <test/utils/operators.h>
 
 #include "morton_code.h"
 

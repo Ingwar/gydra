@@ -18,7 +18,6 @@ set(
   MORTON_TESTS
   octree/morton/matchers/morton_code.cu
   octree/morton/property/morton_code.cu
-  octree/morton/utils.cpp
   octree/morton/helpers_test.cu
   octree/morton/short_dilation_test.cu octree/morton/dilation_test.cu
   octree/morton/short_undilation_test.cu octree/morton/undilation_test.cu

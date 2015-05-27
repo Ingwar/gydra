@@ -6,7 +6,6 @@
 #include <test/property/numeric.h>
 #include "matchers/morton_code.h"
 
-#include "utils.h"
 
 namespace gydra {
 

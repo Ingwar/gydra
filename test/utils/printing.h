@@ -1,5 +1,5 @@
-#ifndef GYDRA_TESTING_UTILS_PRINTING_H_
-#define GYDRA_TESTING_UTILS_PRINTING_H_
+#ifndef GYDRA_TEST_UTILS_PRINTING_H_
+#define GYDRA_TEST_UTILS_PRINTING_H_
 
 namespace gydra {
 
@@ -17,4 +17,4 @@ std::string as_ordinal(size_t number);
 
 }  // namespace gydra
 
-#endif  // GYDRA_TESTING_UTILS_PRINTING_H_
+#endif  // GYDRA_TEST_UTILS_PRINTING_H_

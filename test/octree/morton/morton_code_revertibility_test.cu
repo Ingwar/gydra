@@ -3,8 +3,9 @@
 #include <src/octree/morton.h>
 
 #include <test/utils/matchers/bitwise.h>
+#include <test/utils/operators.h>
 #include "property/morton_code.h"
-#include "utils.h"
+
 
 namespace gydra {
 
