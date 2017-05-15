@@ -22,6 +22,7 @@ class GTEST_TEST_CLASS_NAME_(test_case_name, test_name) : public test_case_name 
   ::test_info_ =\
     ::testing::internal::MakeAndRegisterTestInfo(\
         #test_case_name, #test_name, NULL, NULL, \
+        ::testing::internal::CodeLocation(__FILE__, __LINE__), \
         (::testing::internal::GetTypeId<test_case_name>()), \
         test_case_name::SetUpTestCase, \
         test_case_name::TearDownTestCase, \
