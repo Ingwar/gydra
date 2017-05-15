@@ -10,7 +10,7 @@ namespace gydra {
 
 /** @defgroup precision Numerical precision
  *
- * Typedefs and macros for easy switching between single and double precion floats.
+ * Typedefs and macros for easy switching between single and double precision floats.
  *
  * Default choice is single precision floating point numbers. To switch to the
  * double precision numbers compile with the `GYDRA_DOUBLE_PRECISION` macro defined.

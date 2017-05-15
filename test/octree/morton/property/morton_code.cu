@@ -20,16 +20,16 @@ const unsigned int max_unsigned_int = std::numeric_limits<unsigned int>::max();
 } //  namespace
 
 
-PropertyTestForAllPointsInside::PropertyTestForAllPointsInside(const uint3 left_bottom_rear_corner, const uint3 rigth_top_front_corner) {
-  assert(left_bottom_rear_corner.x <= rigth_top_front_corner.x);
-  assert(left_bottom_rear_corner.y <= rigth_top_front_corner.y);
-  assert(left_bottom_rear_corner.z <= rigth_top_front_corner.z);
+PropertyTestForAllPointsInside::PropertyTestForAllPointsInside(const uint3 left_bottom_rear_corner, const uint3 right_top_front_corner) {
+  assert(left_bottom_rear_corner.x <= right_top_front_corner.x);
+  assert(left_bottom_rear_corner.y <= right_top_front_corner.y);
+  assert(left_bottom_rear_corner.z <= right_top_front_corner.z);
 
   rng = thrust::default_random_engine(std::time(NULL));
 
-  x_dist = thrust::uniform_int_distribution< unsigned int >(left_bottom_rear_corner.x, rigth_top_front_corner.x);
-  y_dist = thrust::uniform_int_distribution< unsigned int >(left_bottom_rear_corner.y, rigth_top_front_corner.y);
-  z_dist = thrust::uniform_int_distribution< unsigned int >(left_bottom_rear_corner.z, rigth_top_front_corner.z);
+  x_dist = thrust::uniform_int_distribution< unsigned int >(left_bottom_rear_corner.x, right_top_front_corner.x);
+  y_dist = thrust::uniform_int_distribution< unsigned int >(left_bottom_rear_corner.y, right_top_front_corner.y);
+  z_dist = thrust::uniform_int_distribution< unsigned int >(left_bottom_rear_corner.z, right_top_front_corner.z);
 }
 
 uint3 PropertyTestForAllPointsInside::GenerateCase() {

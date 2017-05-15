@@ -157,7 +157,7 @@ __host__ __device__ unsigned int get_second_bits_of_dilated_number(const uint64 
 __host__ __device__ unsigned int dilate_short(const unsigned int number);
 
 
-/** Reverse dilation (if orifinal number was less than \f$2^{10}\f$).
+/** Reverse dilation (if original number was less than \f$2^{10}\f$).
  *
  * This function takes each third bit of unsigned integer from 0th to 27th
  * (i.e., 0th, 3rd, 6th, ... , 27th) and returns them as unsigned integer. All other
@@ -182,7 +182,7 @@ __host__ __device__ unsigned int dilate_short(const unsigned int number);
 __host__ __device__ unsigned int undilate_short(const unsigned int number);
 
 
-/** Interleaves first 20 butes of integer with zeros.
+/** Interleaves first 20 bytes of integer with zeros.
  *
  *  This function takes first 20 bytes of the integer, 
  *  insert two zeros between them and returns result as 64-bit unsigned
@@ -206,7 +206,7 @@ __host__ __device__ unsigned int undilate_short(const unsigned int number);
 __host__ __device__ uint64 dilate(const unsigned int number);
 
 
-/** Reverse dilation (if orifinal number was less than \f$2^{20}\f$).
+/** Reverse dilation (if original number was less than \f$2^{20}\f$).
  *
  * This function takes each third bit of 64-bit unsigned integer from 0th to 57th
  * (i.e., 0th, 3rd, 6th, ... , 57th) and returns them as unsigned integer. All other

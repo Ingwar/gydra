@@ -124,15 +124,15 @@ TEST_F(FindBoundingBoxTest, should_work_on_GPU) {
 
     real3 left_bottom_rear = bounding_box.get_left_bottom_rear();
 
-    real3 rigth_top_front = bounding_box.get_right_top_front();
+    real3 right_top_front = bounding_box.get_right_top_front();
 
     ASSERT_FLOAT_EQ(min_x, left_bottom_rear.x);
     ASSERT_FLOAT_EQ(min_y, left_bottom_rear.y);
     ASSERT_FLOAT_EQ(min_z, left_bottom_rear.z);
 
-    ASSERT_FLOAT_EQ(max_x, rigth_top_front.x);
-    ASSERT_FLOAT_EQ(max_y, rigth_top_front.y);
-    ASSERT_FLOAT_EQ(max_z, rigth_top_front.z);
+    ASSERT_FLOAT_EQ(max_x, right_top_front.x);
+    ASSERT_FLOAT_EQ(max_y, right_top_front.y);
+    ASSERT_FLOAT_EQ(max_z, right_top_front.z);
 }
 
 
@@ -145,15 +145,15 @@ TEST_F(FindBoundingBoxTest, should_work_on_CPU) {
 
     real3 left_bottom_rear = bounding_box.get_left_bottom_rear();
 
-    real3 rigth_top_front = bounding_box.get_right_top_front();
+    real3 right_top_front = bounding_box.get_right_top_front();
 
     ASSERT_FLOAT_EQ(min_x, left_bottom_rear.x);
     ASSERT_FLOAT_EQ(min_y, left_bottom_rear.y);
     ASSERT_FLOAT_EQ(min_z, left_bottom_rear.z);
 
-    ASSERT_FLOAT_EQ(max_x, rigth_top_front.x);
-    ASSERT_FLOAT_EQ(max_y, rigth_top_front.y);
-    ASSERT_FLOAT_EQ(max_z, rigth_top_front.z);
+    ASSERT_FLOAT_EQ(max_x, right_top_front.x);
+    ASSERT_FLOAT_EQ(max_y, right_top_front.y);
+    ASSERT_FLOAT_EQ(max_z, right_top_front.z);
 }
 
 

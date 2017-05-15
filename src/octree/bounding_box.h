@@ -33,7 +33,7 @@ class BoundingBox {
    */
   __host__ __device__ BoundingBox() {
     left_bottom_rear = make_real3(0, 0, 0);
-    rigth_top_front = make_real3(0, 0, 0);
+    right_top_front = make_real3(0, 0, 0);
   }
 
   /** Creates new instance of `BoundingBox` from points representing corners.
@@ -41,7 +41,7 @@ class BoundingBox {
    * @param left left-bottom-rear corner of the new region
    * @param right right-top-front corner of the new region
    */
-  __host__ __device__ BoundingBox(const real3& left, const real3& right): left_bottom_rear(left), rigth_top_front(right) {
+  __host__ __device__ BoundingBox(const real3& left, const real3& right): left_bottom_rear(left), right_top_front(right) {
     assert(left.x <= right.x);
     assert(left.y <= right.y);
     assert(left.z <= right.z);
@@ -60,7 +60,7 @@ class BoundingBox {
    *  @returns right-top-front corner of the BoundingBox
    */
   __host__ __device__ real3 get_right_top_front() const {
-    return rigth_top_front;
+    return right_top_front;
   }
 
   /** Returns width of the bounding box.
@@ -71,7 +71,7 @@ class BoundingBox {
    *  points of the bounding box along the `x` axis
    */
   __host__ __device__ real get_width() const {
-    return rigth_top_front.x - left_bottom_rear.x;
+    return right_top_front.x - left_bottom_rear.x;
   }
 
   /** Returns length of the bounding box.
@@ -82,7 +82,7 @@ class BoundingBox {
    *  points of the bounding box along the `y` axis
    */
   __host__ __device__ real get_length() const {
-    return rigth_top_front.y - left_bottom_rear.y;
+    return right_top_front.y - left_bottom_rear.y;
   }
 
   /** Returns height of the bounding box.
@@ -93,16 +93,16 @@ class BoundingBox {
    *  points of the bounding box along the `z` axis
    */
   __host__ __device__ real get_height() const {
-    return rigth_top_front.z - left_bottom_rear.z;
+    return right_top_front.z - left_bottom_rear.z;
   }
 
-  /** Returns the length of the longest edge of the bouding box.
+  /** Returns the length of the longest edge of the bounding box.
    */
   __host__ __device__ real get_longest_edge() const {
     return thrust::max(thrust::max(get_width(), get_height()), get_length());
   }
 
-  /** Returns the length of the shortest edge of the bouding box.
+  /** Returns the length of the shortest edge of the bounding box.
    */
   __host__ __device__ real get_shortest_edge() const {
     return thrust::min(thrust::max(get_width(), get_height()), get_length());
@@ -111,14 +111,14 @@ class BoundingBox {
  private:
   real3 left_bottom_rear;
 
-  real3 rigth_top_front;
+  real3 right_top_front;
 
 };
 
 
 /**Function object for finding bounding box for given set of points.
  *
- * @tparam InputIterator **Thrust** iterator for the sequnce of objects
+ * @tparam InputIterator **Thrust** iterator for the sequence of objects
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>
@@ -143,14 +143,14 @@ class BoundingBoxFinder {
 
 /** Internal namespace for helper classes.
  *
- * It's not intented for public use an subject to changes.
+ * It's not intended for public use an subject to changes.
  */
 namespace helpers {
 
 
 /** Function object for creating degenerate `BoundingBox` from other object position.
  *
- * Termin "degenerate" means that both minimal and maximal postions of the `BoundingBox`
+ * Term "degenerate" means that both minimal and maximal positions of the `BoundingBox`
  * instance will be equal to the position of the given object.
  *
  * @tparam T class with method `real3 get_position() const`
@@ -164,7 +164,7 @@ class ToBoundingBox : public thrust::unary_function< T, BoundingBox > {
 
   /** Creates `BoundingBox` instance from the given object's position.
    *
-   * @param x objeсt whose position will be used for `BoundingBox` instance constraction
+   * @param x object whose position will be used for `BoundingBox` instance construction
    * @returns instance of `BoundingBox` with both fields equal to the `x` position
    */
   __host__ __device__ BoundingBox operator()(const T& x) const {
@@ -193,8 +193,8 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
    */
   __host__ __device__ BoundingBox operator()(const BoundingBox& one, const BoundingBox& another) const {
     const real3 left_bottom_rear = find_minimum_point(one, another);
-    const real3 rigth_top_front = find_maximum_point(one, another);
-    return BoundingBox(left_bottom_rear, rigth_top_front);
+    const real3 right_top_front = find_maximum_point(one, another);
+    return BoundingBox(left_bottom_rear, right_top_front);
   }
 
   private:
@@ -232,7 +232,7 @@ class MergeBoundingBoxes: public thrust::binary_function< BoundingBox, BoundingB
 
 /**Function object for finding bounding box for given set of points.
  *
- * @tparam InputIterator **Thrust** iterator for the sequnce of objects
+ * @tparam InputIterator **Thrust** iterator for the sequence of objects
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>
@@ -263,9 +263,9 @@ class BoundingBoxFinderImplementation: public BoundingBoxFinder<InputIterator> {
 };
 
 
-/** Factory function for standart implementation of `BoundingBoxFinderInterface`.
+/** Factory function for standard implementation of `BoundingBoxFinderInterface`.
  *
- * @tparam InputIterator **Thrust** iterator for the sequnce of objects
+ * @tparam InputIterator **Thrust** iterator for the sequence of objects
  *   with `real3 get_position() const` method
  */
 template <typename InputIterator>

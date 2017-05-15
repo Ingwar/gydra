@@ -17,7 +17,7 @@ namespace test {
 class PropertyTestForAllPointsInside : public gydra::testing::property::PropertyTest<uint3> {
 
  public:
-  PropertyTestForAllPointsInside(const uint3 left_bottom_rear_corner, const uint3 rigth_top_front_corner);
+  PropertyTestForAllPointsInside(const uint3 left_bottom_rear_corner, const uint3 right_top_front_corner);
 
  protected:
   uint3 GenerateCase();

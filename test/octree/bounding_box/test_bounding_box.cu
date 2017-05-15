@@ -21,24 +21,24 @@ TEST(BoundingBoxTest, default_constructor_should_create_bounding_box_with_corner
   const BoundingBox bounding_box;
 
   const real3 left_bottom_rear_corner = bounding_box.get_left_bottom_rear();
-  const real3 rigth_top_front_corner = bounding_box.get_right_top_front();
+  const real3 right_top_front_corner = bounding_box.get_right_top_front();
 
   ASSERT_THAT(left_bottom_rear_corner, IsEqualToThePointWithFloatCoordinates(make_real3(0, 0, 0)));
-  ASSERT_THAT(rigth_top_front_corner, IsEqualToThePointWithFloatCoordinates(make_real3(0, 0, 0)));
+  ASSERT_THAT(right_top_front_corner, IsEqualToThePointWithFloatCoordinates(make_real3(0, 0, 0)));
 }
 
 
 TEST(BoundingBoxTest, bounding_box_constructor_should_create_bounding_box_with_corners_at_given_points) {
   const real3 left_bottom_rear_corner_coordinates = make_real3(-15, -1e6, -1e12);
-  const real3 rigth_top_front_corner_coordinates = make_real3(1e8, 37.5, 3.2e15);
+  const real3 right_top_front_corner_coordinates = make_real3(1e8, 37.5, 3.2e15);
 
-  const BoundingBox bounding_box(left_bottom_rear_corner_coordinates, rigth_top_front_corner_coordinates);
+  const BoundingBox bounding_box(left_bottom_rear_corner_coordinates, right_top_front_corner_coordinates);
 
   const real3 left_bottom_rear_corner = bounding_box.get_left_bottom_rear();
-  const real3 rigth_top_front_corner = bounding_box.get_right_top_front();
+  const real3 right_top_front_corner = bounding_box.get_right_top_front();
 
   ASSERT_THAT(left_bottom_rear_corner, IsEqualToThePointWithFloatCoordinates(left_bottom_rear_corner_coordinates));
-  ASSERT_THAT(rigth_top_front_corner, IsEqualToThePointWithFloatCoordinates(rigth_top_front_corner_coordinates));
+  ASSERT_THAT(right_top_front_corner, IsEqualToThePointWithFloatCoordinates(right_top_front_corner_coordinates));
 }
 
 
